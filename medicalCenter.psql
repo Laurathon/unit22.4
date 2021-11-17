@@ -1,0 +1,68 @@
+DROP DATABASE IF EXISTS medical;
+
+CREATE DATABASE medical;
+
+\c medical
+
+ CREATE TABLE patient
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE doctor
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+ );
+
+
+CREATE TABLE medical_center
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  doctor_id INTEGER NOT NULL REFERENCES doctor ON DELETE SET NULL
+ ); 
+
+
+CREATE TABLE disease
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL
+ );
+
+ CREATE TABLE visit
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  patient_id INTEGER NOT NULL REFERENCES patient ON DELETE SET NULL,
+  disease_id INTEGER NOT NULL REFERENCES disease ON DELETE SET NULL,
+  doctor_id INTEGER NOT NULL REFERENCES doctor ON DELETE SET NULL
+ );
+
+ INSERT INTO patient
+  (name)
+  VALUES
+    ('Jim');
+
+  Insert into disease
+     (name)
+  VALUES
+    ('Diabetes');
+
+  INSERT INTO doctor
+  (name, patient_id)
+  VALUES('Dr Oz', 1);
+
+ INSERT INTO doctor
+  (name, patient_id)
+  VALUES('Dr Fin', 2);
+  
+
+INSERT INTO medical_center
+(name, doctor_id)
+VALUES
+("northridge',1)  
+
+INSERT INTO visit(name, patient_id, disease_id, doctor_id)    
+VALUES ('Friday visit', 1, 2, 1);

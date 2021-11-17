@@ -1,0 +1,41 @@
+DROP DATABASE IF EXISTS CraigsList;
+
+CREATE DATABASE CraigsList;
+
+\c CraigsList
+
+ CREATE TABLE region
+(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE users
+ (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL
+   );
+
+CREATE TABLE location
+(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL
+  );
+
+CREATE TABLE posts
+ ( 
+   id SERIAL PRIMARY KEY,
+  text TEXT NOT NULL,
+  title TEXT NOT NULL,
+  user_id INTEGER NOT NULL REFERENCES users ON DELETE SET NULL,
+  location_id INTEGER NOT NULL REFERENCES location ON DELETE SET NULL,
+  region_id INTEGER NOT NULL REFERENCES region ON DELETE SET NULL
+  );
+
+CREATE TABLE categories
+  (
+  id SERIAL PRIMARY KEY,
+  post_id INTEGER NOT NULL REFERENCES posts ON DELETE SET NULL,
+  name TEXT NOT NULL
+  );
+
